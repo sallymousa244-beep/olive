@@ -1,0 +1,388 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Cairo", Tahoma, sans-serif;
+    background: #142d20;
+    color: #fff8e8;
+}
+
+.game-page {
+    width: min(100%, 950px);
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #f6d98b;
+    margin-bottom: 5px;
+}
+
+header p {
+    margin-top: 0;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.game-info span {
+    background: #28513a;
+    border: 1px solid #d8ad58;
+    border-radius: 30px;
+    padding: 10px 18px;
+    font-weight: bold;
+}
+
+.game-area {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 4px solid #d8ad58;
+
+    background-image: url("olive-ground.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.olive {
+    position: absolute;
+    width: 7%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    touch-action: manipulation;
+}
+
+.olive::before {
+    content: "";
+    display: block;
+    width: 62%;
+    height: 80%;
+    border-radius: 48% 48% 45% 45%;
+    transform: rotate(-25deg);
+
+    background: radial-gradient(
+        circle at 30% 25%,
+        #c2cf75,
+        #71832c 55%,
+        #354516
+    );
+
+    box-shadow: 2px 4px 5px #0005;
+}
+
+.olive:nth-child(even)::before {
+    background: radial-gradient(
+        circle at 30% 25%,
+        #877399,
+        #44304f 55%,
+        #211729
+    );
+}
+
+.olive.found {
+    pointer-events: none;
+}
+
+.olive.found::before {
+    box-shadow: 0 0 0 4px #ffdc71,
+                0 0 22px #ffdc71;
+}
+
+button {
+    font-family: inherit;
+}
+
+#restartBtn,
+#nextBtn {
+    margin-top: 12px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 30px;
+    background: #f6d98b;
+    color: #183c2b;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.success-box {
+    margin-top: 20px;
+    padding: 22px;
+    background: #28513a;
+    border: 1px solid #d8ad58;
+    border-radius: 20px;
+}
+
+.success-box[hidden] {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .game-page {
+        padding: 12px;
+    }
+
+    .olive {
+        width: 11%;
+    }
+
+    .game-info span {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+}
+/* تصغير حبات الزيتون */
+.olive {
+    width: 3.5%;
+    min-width: 0;
+    opacity: 0.95;
+}
+
+/* حبات الزيتون الأخضر */
+.olive::before {
+    width: 55%;
+    height: 80%;
+    background: radial-gradient(
+        ellipse at 30% 25%,
+        #a3b45a 0%,
+        #697b2f 55%,
+        #34431b 100%
+    );
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.35);
+}
+
+/* حبات الزيتون الأسود */
+.olive:nth-child(even)::before {
+    background: radial-gradient(
+        ellipse at 30% 25%,
+        #63556e 0%,
+        #34273e 60%,
+        #17131c 100%
+    );
+}
+
+/* اللمعة تظهر بعد اكتشاف الحبة فقط */
+.olive.found::before {
+    box-shadow:
+        0 0 0 3px #f6d98b,
+        0 0 15px rgba(246,217,139,0.8);
+}
+
+@media (max-width: 600px) {
+    .olive {
+        width: 7%;
+    }
+}
+/* سلة الزيتون */
+.basket {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 15px;
+    background: rgba(36, 60, 30, 0.9);
+    border: 2px solid #d8ad58;
+    border-radius: 18px;
+    color: #fff5df;
+    font-weight: bold;
+
+    pointer-events: none;
+}
+
+.basket-icon {
+    font-size: 36px;
+}
+
+.basket-count {
+    font-size: 18px;
+}
+
+/* الحبة أثناء انتقالها للسلة */
+.flying-olive {
+    position: fixed;
+    width: 24px;
+    height: 32px;
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+
+    background: radial-gradient(
+        ellipse at 30% 25%,
+        #a6bb55,
+        #61762b 60%,
+        #283b16
+    );
+
+    box-shadow: 0 3px 8px #0005;
+    transition:
+        left 0.65s ease-in,
+        top 0.65s ease-in,
+        transform 0.65s ease-in,
+        opacity 0.65s ease-in;
+}
+
+.flying-olive.dark {
+    background: radial-gradient(
+        ellipse at 30% 25%,
+        #776383,
+        #3a2c45 60%,
+        #1d1724
+    );
+}
+
+/* اهتزاز السلة عند استقبال حبة */
+.basket.bump {
+    animation: basketBump 0.35s ease;
+}
+
+@keyframes basketBump {
+    50% {
+        transform: scale(1.12);
+    }
+}
+/* مشهد نمو الشتلة */
+.growth-scene {
+    position: relative;
+    height: 200px;
+    max-width: 400px;
+    margin: 20px auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.growing-tree {
+    position: relative;
+    z-index: 2;
+    font-size: 100px;
+    transform: scale(0);
+    transform-origin: bottom center;
+}
+
+.growing-tree.animate {
+    animation: treeGrowth 2.5s ease-out forwards;
+}
+
+.growth-soil {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    border-radius: 50% 50% 0 0;
+    background: linear-gradient(
+        #a07748,
+        #49301d
+    );
+}
+
+@keyframes treeGrowth {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(0.55);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#nextBtn[hidden] {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .growing-tree.animate {
+        animation-duration: 0.01ms;
+    }
+}
+/* شاشة نمو النبتة بدل صورة اللعبة */
+.success-box {
+    width: 100%;
+    min-height: 400px;
+    margin-top: 0;
+    padding: 35px 20px;
+
+    background:
+        linear-gradient(
+            rgba(17, 49, 29, 0.80),
+            rgba(9, 34, 20, 0.92)
+        ),
+        url("assets/olive-grove.png")
+        center / cover no-repeat;
+
+    border: 4px solid #d8ad58;
+    border-radius: 22px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.success-box[hidden],
+.game-area[hidden],
+.game-info[hidden] {
+    display: none;
+}
+
+.success-box h2 {
+    color: #f6d98b;
+    font-size: 32px;
+}
+
+.growth-scene {
+    width: 100%;
+}
+/* إظهار منطقة اللعب بشكل طبيعي */
+.game-area {
+    display: block;
+    position: relative;
+}
+
+/* إخفاؤها فقط عند وجود hidden */
+.game-area[hidden] {
+    display: none !important;
+}
+
+/* إظهار حبات الزيتون */
+.game-area .olive {
+    display: grid;
+    visibility: visible;
+}
+
+/* إخفاء الحبة بعد اكتشافها */
+.game-area .olive.found {
+    visibility: hidden;
+}
+
+/* إخفاء شاشة النجاح قبل الفوز */
+.success-box[hidden] {
+    display: none !important;
+}

@@ -1,0 +1,240 @@
+/* الإعدادات العامة */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: #102b1b;
+}
+
+.wishes-page {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+/* عنوان الصفحة */
+.wishes-header {
+    padding: 30px 15px;
+    background: linear-gradient(135deg, #102b1b, #245435);
+}
+
+.wishes-header h1 {
+    margin: 0 0 12px;
+    color: #f6d98b;
+    font-size: clamp(28px, 4vw, 46px);
+}
+
+.wishes-header p {
+    color: #f6edda;
+    font-size: 19px;
+}
+
+/* خلفية شجرة الأمنيات */
+.wishes-scene {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    min-height: 600px;
+    overflow: hidden;
+
+    background: url("ttree.jpg")
+        center center / cover no-repeat;
+}
+
+/* طبقة الأوراق فوق الشجرة */
+.wishes-tree {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.wishes-tree > img {
+    display: none;
+}
+
+.wish-leaves {
+    position: absolute;
+    top: 5%;
+    left: 8%;
+    width: 84%;
+    height: 65%;
+    pointer-events: none;
+}
+
+/* ورقة زيتون طويلة ومدببة */
+.wish-leaf {
+    position: absolute;
+
+    width: 150px;
+    height: 70px;
+    max-width: none;
+    min-height: 0;
+
+    padding: 10px 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        145deg,
+        #c0dba0 0%,
+        #86b66a 28%,
+        #568b49 60%,
+        #2c6036 100%
+    );
+
+    clip-path: polygon(
+        0% 50%,
+        14% 31%,
+        36% 13%,
+        65% 8%,
+        87% 26%,
+        100% 50%,
+        87% 74%,
+        65% 92%,
+        36% 87%,
+        14% 69%
+    );
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    transform: translate(-50%, -50%) rotate(-12deg);
+    transform-origin: center;
+    z-index: 5;
+
+    pointer-events: auto;
+
+    animation: leafGrow .9s ease-out both;
+}
+
+/* العرق الوسطي لورقة الزيتون */
+.wish-leaf::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    width: 84%;
+    height: 2px;
+    background: rgba(234, 255, 210, .3);
+}
+
+/* نص الأمنية */
+.leaf-text {
+    position: relative;
+    z-index: 2;
+
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.4;
+    text-align: center;
+
+    overflow-wrap: anywhere;
+    max-height: 75px;
+    overflow: hidden;
+}
+
+/* حركة ظهور الورقة */
+@keyframes leafGrow {
+    from {
+        opacity: 0;
+        scale: .2;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+/* نموذج كتابة الأمنية */
+.wish-form {
+    width: min(90%, 650px);
+    margin: 30px auto;
+    padding: 28px;
+
+    border: 1px solid #d6b76b;
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #1d4b2d,
+        #123821
+    );
+}
+
+.wish-form h2 {
+    color: #f6d98b;
+}
+
+textarea {
+    width: 100%;
+    padding: 16px;
+
+    border: 1px solid #d6b76b;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 17px;
+    resize: vertical;
+}
+
+button,
+.back-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 14px 24px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #d6b76b;
+    color: #18351e;
+
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover,
+.back-btn:hover {
+    background: #f6d98b;
+}
+
+#wishMessage {
+    color: #f6d98b;
+    font-size: 16px;
+}
+
+/* تنسيق الهاتف */
+@media (max-width: 600px) {
+    .wishes-scene {
+        height: 60vh;
+        min-height: 420px;
+    }
+
+    .wish-leaf {
+        width: 110px;
+        height: 55px;
+        padding: 8px 16px;
+    }
+
+    .leaf-text {
+        font-size: 8px;
+        max-height: 38px;
+    }
+
+    .wish-form {
+        padding: 18px;
+    }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>بستان الأمل الرقمي</title>
+    <link rel="stylesheet" href="grove.css">
+</head>
+<body>
+
+<main class="grove-page">
+
+    <header class="grove-header">
+        <h1>🌿 بستان الأمل الرقمي</h1>
+        <p id="welcomeMessage">
+            أهلاً بك في بستان الأمل
+        </p>
+    </header>
+
+    <section class="grove-scene" id="groveScene">
+
+        <div class="sunlight"></div>
+
+       
+
+        <div class="planting-spot" id="plantingSpot">
+            <div class="my-tree" id="myTree">
+                <img src="olive-tree.png"
+                     alt="شجرة الزيتون الخاصة بك">
+            </div>
+
+            <div class="tree-soil"></div>
+
+            <div class="tree-name" id="treeName"></div>
+        </div>
+        <!-- أشجار جميع الزوار -->
+<div class="community-trees" id="communityTrees"></div>
+
+<!-- عدد الأشجار المزروعة -->
+<div class="trees-counter" id="treesCounter">
+    🌳 عدد أشجار الأمل: 0
+</div>
+
+    </section>
+
+    <section class="grove-controls">
+        <p id="plantingMessage">
+            🌱 استعد لزراعة شجرتك في البستان
+        </p>
+
+        <button id="plantTreeBtn">
+            🌿 ازرع شجرتي الآن
+        </button>
+
+        <button id="wishBtn" hidden>
+            ✨ اكتب أمنية على شجرة الأمنيات
+        </button>
+    </section>
+
+    
+</main>
+
+<script type="module" src="grove.js"></script>
+</body>
+</html>

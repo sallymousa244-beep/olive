@@ -1,0 +1,340 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: #102b1b;
+}
+
+.grove-page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.grove-header h1 {
+    color: #f6d98b;
+    font-size: clamp(28px, 4vw, 44px);
+}
+
+.grove-header p {
+    color: #f6edda;
+    font-size: 19px;
+}
+
+.grove-scene {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    min-height: 600px;
+    overflow: hidden;
+    isolation: isolate;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background:
+        linear-gradient(
+            rgba(10, 30, 15, .04),
+            rgba(10, 30, 15, .12)
+        ),
+        url("tree.jpg") center bottom / cover no-repeat;
+}
+
+.sunlight {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 30% 15%,
+        rgba(255, 224, 125, .35),
+        transparent 45%
+    );
+    pointer-events: none;
+}
+
+.wish-tree {
+    position: absolute;
+    top: 12%;
+    right: 8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+}
+
+.wish-tree span {
+    font-size: 115px;
+}
+
+.wish-tree strong {
+    padding: 8px 15px;
+    background: #234b30;
+    border: 1px solid #e0c37c;
+    border-radius: 12px;
+    color: #f6d98b;
+}
+
+.planting-spot {
+    position: absolute;
+    bottom: 12%;
+    left: 48%;
+    width: 400px;
+    height: 430px;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.my-tree {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    transform: translateX(-50%) scale(0);
+    transform-origin: center bottom;
+    z-index: 2;
+    opacity: 0;
+}
+
+.my-tree img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+}
+
+.my-tree.grow {
+    animation: growInGrove 4s ease-out forwards;
+}
+
+@keyframes growInGrove {
+    0% {
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
+    }
+    30% {
+        transform: translateX(-50%) scale(.25);
+        opacity: 1;
+    }
+    65% {
+        transform: translateX(-50%) scale(.65);
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.tree-soil {
+    display: none;
+}
+
+.tree-name {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 7px 12px;
+    min-width: 120px;
+    border: 2px solid #cba45d;
+    border-radius: 9px;
+    background: #573a23;
+    color: #ffe6a5;
+    font-weight: bold;
+    z-index: 6;
+    visibility: hidden;
+}
+
+.tree-name.visible {
+    visibility: visible;
+}
+
+.grove-controls,
+.wish-panel {
+    margin: 22px auto;
+    padding: 20px;
+    border-radius: 18px;
+    background: #1d4b2d;
+}
+
+button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: #d6b76b;
+    color: #18351e;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.wish-panel {
+    max-width: 650px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #d6b76b;
+    font-family: inherit;
+    font-size: 17px;
+    resize: vertical;
+}
+
+#wishMessage {
+    color: #f6d98b;
+}
+
+@media (max-width: 600px) {
+    .grove-scene {
+        height: 450px;
+    }
+
+    .wish-tree {
+        right: 3%;
+    }
+
+    .wish-tree span {
+        font-size: 75px;
+    }
+
+    .planting-spot {
+        
+        bottom: 10%;
+        left: 50%;
+        width: 220px;
+        height: 260px;
+        transform: translateX(-50%);
+        
+    }
+    
+}
+/* مساحة الأشجار المشتركة */
+.community-trees {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* شجرة زائر */
+.community-tree {
+    position: absolute;
+    width: 105px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -100%);
+    pointer-events: auto;
+    animation: treeAppear 1s ease-out both;
+}
+
+.community-tree img {
+    width: 100px;
+    height: 110px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,.3));
+}
+
+.community-tree .visitor-label {
+    max-width: 120px;
+    padding: 5px 9px;
+    border-radius: 8px;
+    background: #573a23;
+    border: 1px solid #e0c37c;
+    color: #ffe6a5;
+    font-size: 12px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+@keyframes treeAppear {
+    from {
+        opacity: 0;
+        scale: .3;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+/* عداد الأشجار */
+.trees-counter {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background: rgba(20, 65, 35, .9);
+    border: 1px solid #e0c37c;
+    color: #ffe6a5;
+    font-weight: bold;
+    z-index: 10;
+}
+
+@media (max-width: 600px) {
+    .community-tree {
+        width: 70px;
+    }
+
+    .community-tree img {
+        width: 70px;
+        height: 80px;
+    }
+
+    .community-tree .visitor-label {
+        max-width: 85px;
+        font-size: 10px;
+    }
+
+    .trees-counter {
+        font-size: 12px;
+    }
+}
+/* تكبير الأشجار القديمة */
+.community-tree {
+    width: 220px;
+}
+
+.community-tree img {
+    width: 220px;
+    height: 240px;
+    object-fit: contain;
+}
+
+/* الاسم تحت الشجرة */
+.community-tree .visitor-label {
+    max-width: 200px;
+    font-size: 14px;
+    padding: 7px 12px;
+}
+
+/* حجم مناسب للموبايل */
+@media (max-width: 600px) {
+    .community-tree {
+        width: 130px;
+    }
+
+    .community-tree img {
+        width: 130px;
+        height: 145px;
+    }
+
+    .community-tree .visitor-label {
+        max-width: 125px;
+        font-size: 11px;
+    }
+}
